@@ -1,0 +1,66 @@
+.wrapper {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.list {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin: 15px 0;
+}
+
+.item {
+    width: 100px;
+}
+
+.button {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-radius: 20px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.good {
+    composes: button;
+    background-color: green;
+}
+
+.neutral {
+    composes: button;
+    background-color: yellow;
+}
+
+.bad {
+    composes: button;
+    background-color: red;
+}
+
+.statisticList {
+    composes: list;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.statisticItem {
+    font-size: 20px;
+}
+
+.statWrapper {
+    opacity: 0;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.isActive {
+    opacity: 1;
+}
