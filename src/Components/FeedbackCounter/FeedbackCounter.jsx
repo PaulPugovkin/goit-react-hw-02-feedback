@@ -86,7 +86,7 @@ class FeedbackCounter extends Component {
                             <li className={styles.statisticItem}>
                                 <span>Total:{this.state.total}</span>
                             </li>
-                            <li>
+                            <li className={styles.statisticItem}>
                                 <span>
                                     Positive feedback:{' '}
                                     {this.countPositiveFeedbackPercentage()}%
