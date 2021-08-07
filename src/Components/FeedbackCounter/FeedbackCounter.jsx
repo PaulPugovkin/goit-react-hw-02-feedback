@@ -1,5 +1,8 @@
 import { Component } from 'react';
 import styles from './FeedbackCounter.module.css';
+import StatisticList from '../StatisticList';
+
+const options = ['good', 'neutral', 'bad'];
 
 class FeedbackCounter extends Component {
     state = {
@@ -10,24 +13,10 @@ class FeedbackCounter extends Component {
         total: 0,
     };
 
-    clickOnGoodRate = () => {
+    handlerClickOnRate = e => {
+        const { name } = e.currentTarget;
         this.setState({
-            good: this.state.good + 1,
-            clicked: true,
-            total: this.state.total + 1,
-        });
-    };
-    clickOnNeutralRate = () => {
-        this.setState({
-            neutral: this.state.neutral + 1,
-            clicked: true,
-            total: this.state.total + 1,
-        });
-    };
-
-    clickOnBadRate = () => {
-        this.setState({
-            bad: this.state.bad + 1,
+            [name]: this.state[name] + 1,
             clicked: true,
             total: this.state.total + 1,
         });
@@ -38,62 +27,32 @@ class FeedbackCounter extends Component {
     };
 
     render() {
+        const { good, neutral, bad, total } = this.state;
         return (
             <div className={styles.wrapper}>
                 <h2>Please leave feedback</h2>
                 <ul className={styles.list}>
-                    <li className={styles.item}>
-                        <button
-                            onClick={this.clickOnGoodRate}
-                            type="button"
-                            className={styles.good}
-                        >
-                            Good
-                        </button>
-                    </li>
-                    <li className={styles.item}>
-                        <button
-                            onClick={this.clickOnNeutralRate}
-                            type="button"
-                            className={styles.neutral}
-                        >
-                            Neutral
-                        </button>
-                    </li>
-                    <li className={styles.item}>
-                        <button
-                            onClick={this.clickOnBadRate}
-                            type="button"
-                            className={styles.bad}
-                        >
-                            Bad
-                        </button>
-                    </li>
+                    {options.map(option => (
+                        <li className={styles.item}>
+                            <button
+                                name={option}
+                                onClick={this.handlerClickOnRate}
+                                type="button"
+                                className={styles[option]}
+                            >
+                                {option}
+                            </button>
+                        </li>
+                    ))}
                 </ul>
                 {this.state.clicked ? (
-                    <div className={(styles.statWrapper, styles.isActive)}>
-                        <h2>Statistics</h2>
-                        <ul className={styles.statisticList}>
-                            <li className={styles.statisticItem}>
-                                <span>Good: {this.state.good}</span>
-                            </li>
-                            <li className={styles.statisticItem}>
-                                <span>Neutral:{this.state.neutral}</span>
-                            </li>
-                            <li className={styles.statisticItem}>
-                                <span>Bad:{this.state.bad}</span>
-                            </li>
-                            <li className={styles.statisticItem}>
-                                <span>Total:{this.state.total}</span>
-                            </li>
-                            <li className={styles.statisticItem}>
-                                <span>
-                                    Positive feedback:{' '}
-                                    {this.countPositiveFeedbackPercentage()}%
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
+                    <StatisticList
+                        good={good}
+                        neutral={neutral}
+                        bad={bad}
+                        total={total}
+                        positivePercent={this.countPositiveFeedbackPercentage()}
+                    />
                 ) : (
                     <h2>No feedback given</h2>
                 )}
