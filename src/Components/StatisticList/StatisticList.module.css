@@ -21,10 +21,5 @@
 }
 
 .statWrapper {
-    opacity: 0;
     transition: cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-.isActive {
-    opacity: 1;
 }
